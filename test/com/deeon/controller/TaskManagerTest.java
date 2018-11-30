@@ -2,7 +2,7 @@ package com.deeon.controller;
 
 import com.deeon.exception.TaskIsAlreadyExistException;
 import com.deeon.exception.TaskIsNotExistException;
-import com.deeon.model.TaskStorage;
+import com.deeon.model.ArrayTaskStorage;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,7 +13,7 @@ public class TaskManagerTest {
     @Test
     public void createTask() {
 
-        TaskManager taskManager = new TaskManager(new TaskStorage());
+        TaskManager taskManager = new TaskManager(new ArrayTaskStorage());
 
         final String firstName = "name1";
         final String secondName = "name2";
@@ -35,7 +35,7 @@ public class TaskManagerTest {
     @Test
     public void deleteTask() {
 
-        TaskManager taskManager = new TaskManager(new TaskStorage());
+        TaskManager taskManager = new TaskManager(new ArrayTaskStorage());
 
         final String name = "name1";
 

@@ -3,24 +3,33 @@ package com.deeon.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskStorage {
+public class ArrayTaskStorage implements ITaskStorage {
 
-    private final List<Task> taskCollection;
+    private List<Task> taskCollection;
 
-    public TaskStorage() {
+    public ArrayTaskStorage() {
 
         this.taskCollection = new ArrayList<>();
 
     }
 
+    @Override
     public List<Task> getTaskCollection() {
 
         return taskCollection;
     }
 
+    @Override
     public int getSize() {
 
         return taskCollection.size();
+
+    }
+
+    @Override
+    public void updateStorage(List<Task> list) {
+
+        taskCollection = list;
 
     }
 }

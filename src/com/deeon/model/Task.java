@@ -1,10 +1,11 @@
 package com.deeon.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
-public class Task {
+public class Task implements Serializable {
 
     private final String name;
     private final UUID id;

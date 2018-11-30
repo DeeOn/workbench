@@ -3,18 +3,19 @@ package com.deeon.controller;
 import com.deeon.exception.TaskIsAlreadyExistException;
 import com.deeon.exception.TaskIsNotExistException;
 import com.deeon.exception.TaskStorageIsEmptyException;
+import com.deeon.model.FileTaskStorage;
+import com.deeon.model.ITaskStorage;
 import com.deeon.model.Task;
-import com.deeon.model.TaskStorage;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class TaskManager {
 
-    private final TaskStorage taskStorage;
+    private final ITaskStorage taskStorage;
     private final List<Task> tasksCollection;
 
-    public TaskManager(final TaskStorage taskStorage) {
+    public TaskManager(final ITaskStorage taskStorage) {
 
         this.taskStorage = taskStorage;
         this.tasksCollection = taskStorage.getTaskCollection();
@@ -26,6 +27,7 @@ public class TaskManager {
         if (findTask(name, tasksCollection) != null) throw new TaskIsAlreadyExistException();
 
         tasksCollection.add(new Task(name));
+        taskStorage.updateStorage(tasksCollection);
 
     }
 
@@ -35,6 +37,7 @@ public class TaskManager {
         Task task = findTask(name, tasksCollection);
         if (task == null) throw new TaskIsNotExistException();
         else tasksCollection.remove(task);
+        taskStorage.updateStorage(tasksCollection);
 
     }
 
@@ -49,18 +52,11 @@ public class TaskManager {
 
     private Task findTask(final String name, final List<Task> tasksCollection) {
 
-        Task task = null;
-
-        for (Iterator<Task> itr=tasksCollection.iterator(); itr.hasNext();) {
-
-            task = itr.next();
-            if (name.equals(task.getName())) {
-
+        for (Task task: tasksCollection) {
+            if (name.equals(task.getName()))
                 return task;
-
-            }
         }
         return null;
-
     }
+
 }
