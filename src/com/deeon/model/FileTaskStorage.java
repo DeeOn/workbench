@@ -7,40 +7,29 @@ import java.util.List;
 public class FileTaskStorage implements ITaskStorage {
 
     private final String filePath;
-    private List<Task> taskCollection;
 
-    public FileTaskStorage(String path) {
+    public FileTaskStorage(final String path) {
 
         this.filePath = path;
-        if (checkFile(path))
-            taskCollection = readFile(path);
-        else {
-            createFile(path);
-            taskCollection = readFile(path);
-        }
+        if (!checkFile(filePath)) createFile(filePath);
+
     }
 
     @Override
     public List<Task> getTaskCollection() {
 
-        return taskCollection;
-    }
-
-    @Override
-    public int getSize() {
-
-        return taskCollection.size();
+        return readFile(filePath);
 
     }
 
-    @Override
-    public void updateStorage(List<Task> list) {
 
-        taskCollection = list;
+    @Override
+    public void updateStorage(final List<Task> list) {
+
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             ObjectOutputStream output = new ObjectOutputStream(fileOutputStream);
-            output.writeObject(taskCollection);
+            output.writeObject(list);
             output.close();
         } catch (FileNotFoundException e) {
             System.out.println(e);

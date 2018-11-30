@@ -3,11 +3,8 @@ package com.deeon.controller;
 import com.deeon.exception.TaskIsAlreadyExistException;
 import com.deeon.exception.TaskIsNotExistException;
 import com.deeon.exception.TaskStorageIsEmptyException;
-import com.deeon.model.FileTaskStorage;
 import com.deeon.model.ITaskStorage;
 import com.deeon.model.Task;
-
-import java.util.Iterator;
 import java.util.List;
 
 public class TaskManager {
@@ -27,7 +24,6 @@ public class TaskManager {
         if (findTask(name, tasksCollection) != null) throw new TaskIsAlreadyExistException();
 
         tasksCollection.add(new Task(name));
-        taskStorage.updateStorage(tasksCollection);
 
     }
 
@@ -37,16 +33,20 @@ public class TaskManager {
         Task task = findTask(name, tasksCollection);
         if (task == null) throw new TaskIsNotExistException();
         else tasksCollection.remove(task);
-        taskStorage.updateStorage(tasksCollection);
 
     }
 
 
     public String[] getTasksNames() throws TaskStorageIsEmptyException {
 
-        if (taskStorage.getSize() == 0) throw new TaskStorageIsEmptyException();
+        if (tasksCollection.size() == 0) throw new TaskStorageIsEmptyException();
         return tasksCollection.stream().map(Task::getName).toArray(String[]::new);
 
+    }
+
+    public void saveChanges() {
+
+        taskStorage.updateStorage(tasksCollection);
     }
 
 

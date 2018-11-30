@@ -5,6 +5,5 @@ import java.util.List;
 public interface ITaskStorage {
 
     List<Task> getTaskCollection();
-    int getSize();
-    void updateStorage(List<Task> list);
+    void updateStorage(final List<Task> list);
 }

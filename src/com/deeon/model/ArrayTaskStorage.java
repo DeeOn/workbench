@@ -16,20 +16,13 @@ public class ArrayTaskStorage implements ITaskStorage {
     @Override
     public List<Task> getTaskCollection() {
 
-        return taskCollection;
+        return new ArrayList<>(taskCollection);
     }
 
-    @Override
-    public int getSize() {
-
-        return taskCollection.size();
-
-    }
 
     @Override
-    public void updateStorage(List<Task> list) {
+    public void updateStorage(final List<Task> list) {
 
-        taskCollection = list;
-
+        taskCollection = new ArrayList<>(list);
     }
 }
