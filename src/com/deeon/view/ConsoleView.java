@@ -1,8 +1,13 @@
 package com.deeon.view;
 
-public class ConsoleView {
+public class ConsoleView implements IView {
 
-    public void showTasks() {
+    @Override
+    public void printTasksNames(String[] names) {
 
+        for (String name: names) {
+            System.out.println(name);
+        }
     }
+
 }
