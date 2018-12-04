@@ -26,13 +26,11 @@ public class FileTaskStorage implements ITaskStorage {
     @Override
     public void updateStorage(final List<Task> list) {
 
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-            ObjectOutputStream output = new ObjectOutputStream(fileOutputStream);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+             ObjectOutputStream output = new ObjectOutputStream(fileOutputStream)) {
+
             output.writeObject(list);
-            output.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
+
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -47,13 +45,11 @@ public class FileTaskStorage implements ITaskStorage {
 
     private void createFile(String path) {
 
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(path);
-            ObjectOutputStream output = new ObjectOutputStream(fileOutputStream);
-            output.writeObject(new ArrayList<>());
-            output.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
+             ObjectOutputStream output = new ObjectOutputStream(fileOutputStream)){
+
+                output.writeObject(new ArrayList<>());
+
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -63,27 +59,18 @@ public class FileTaskStorage implements ITaskStorage {
 
     private List<Task> readFile(String path) {
 
-        try {
 
-            FileInputStream fileInputStream = new FileInputStream(new File(path));
-            ObjectInputStream input = new ObjectInputStream(fileInputStream);
-            List<Task> list = (List<Task>) input.readObject();
-            input.close();
-            return list;
+        try (FileInputStream fileInputStream = new FileInputStream(path);
+            ObjectInputStream input = new ObjectInputStream(fileInputStream)){
 
-        } catch (FileNotFoundException e){
-            System.out.println(e);
-            return null;
+                @SuppressWarnings("unchecked")
+                List<Task> list = (List<Task>) input.readObject();
+                return list;
 
-        } catch (IOException e){
-            System.out.println(e);
-            return null;
-
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e){
             System.out.println(e);
             return null;
 
         }
-
     }
 }

@@ -13,6 +13,12 @@ public class ArrayTaskStorage implements ITaskStorage {
 
     }
 
+    public ArrayTaskStorage(ArrayList<Task> list) {
+
+        this.taskCollection = list;
+
+    }
+
     @Override
     public List<Task> getTaskCollection() {
 
@@ -24,5 +30,6 @@ public class ArrayTaskStorage implements ITaskStorage {
     public void updateStorage(final List<Task> list) {
 
         taskCollection = new ArrayList<>(list);
+        System.out.println("This storage is temporary!");
     }
 }
