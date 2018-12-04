@@ -39,7 +39,7 @@ public class TaskManager {
 
     public String[] getTasksNames() throws TaskStorageIsEmptyException {
 
-        if (tasksCollection.size() == 0) throw new TaskStorageIsEmptyException();
+        if (!collectionHasElements()) throw new TaskStorageIsEmptyException();
         return tasksCollection.stream().map(Task::getName).toArray(String[]::new);
 
     }
@@ -47,6 +47,12 @@ public class TaskManager {
     public void saveChanges() {
 
         taskStorage.updateStorage(tasksCollection);
+    }
+
+    public boolean collectionHasElements() {
+
+        return tasksCollection.size() != 0;
+
     }
 
 
@@ -58,5 +64,7 @@ public class TaskManager {
         }
         return null;
     }
+
+
 
 }

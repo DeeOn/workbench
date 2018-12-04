@@ -12,4 +12,8 @@ public interface IView {
 
     void clear();
 
+    void printMessage();
+
+    void printBlankLine();
+
 }

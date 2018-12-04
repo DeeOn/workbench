@@ -29,13 +29,13 @@ public class ConsoleView implements IView {
     public void showErrorMessage(Exception e) {
         switch(e.getClass().getName()) {
             case "com.deeon.exception.TaskStorageIsEmptyException":
-                System.out.println("No task is available");
+                System.out.println("No task is available!");
                 break;
             case "com.deeon.exception.TaskIsAlreadyExistException":
-                System.out.println("Task is already exist");
+                System.out.println("Task is already exist!");
                 break;
             case "com.deeon.exception.TaskIsNotExistException":
-                System.out.println("Task is not exist");
+                System.out.println("Task is not exist!");
                 break;
             default:
                 System.out.println(e);
@@ -45,6 +45,20 @@ public class ConsoleView implements IView {
     @Override
     public void clear() {
 
+
+    }
+
+    @Override
+    public void printMessage() {
+
+        System.out.println("Enter task name:");
+
+    }
+
+    @Override
+    public void printBlankLine() {
+
+        System.out.println();
 
     }
 

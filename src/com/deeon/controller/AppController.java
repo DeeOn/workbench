@@ -27,36 +27,36 @@ public class AppController {
         view.showMenu();
         while(true) {
 
-            switch(userInput()) {
+            switch(optionInput()) {
                 case 1:
                     try {
                         view.printTasksNames(taskManager.getTasksNames());
                     } catch (final TaskStorageIsEmptyException e) {
                         view.showErrorMessage(e);
                     }
+                    view.printBlankLine();
                     view.showMenu();
                     break;
 
                 case 2:
                     try {
-                        System.out.println("Enter task name:");
-                        final Scanner inputStr = new Scanner(System.in);
-                        String str =  inputStr.next();
-                        taskManager.createTask(str);
+                        view.printMessage();
+                        taskManager.createTask(taskNameInput());
                     } catch (TaskIsAlreadyExistException e) {
                         view.showErrorMessage(e);
                     }
+                    view.printBlankLine();
                     view.showMenu();
                     break;
                 case 3:
                     try {
-                        System.out.println("Enter task name:");
-                        final Scanner inputStr = new Scanner(System.in);
-                        String str =  inputStr.next();
-                        taskManager.deleteTask(str);
-                    } catch (TaskIsNotExistException e) {
+                        if (!taskManager.collectionHasElements()) throw new TaskStorageIsEmptyException();
+                        view.printMessage();
+                        taskManager.deleteTask(taskNameInput());
+                    } catch (TaskIsNotExistException | TaskStorageIsEmptyException e) {
                         view.showErrorMessage(e);
                     }
+                    view.printBlankLine();
                     view.showMenu();
                     break;
                 case 4:
@@ -71,7 +71,7 @@ public class AppController {
         }
     }
 
-    private int userInput() {
+    private int optionInput() {
 
         try {
 
@@ -81,7 +81,11 @@ public class AppController {
         } catch (InputMismatchException e) {
             return 0;
         }
+    }
 
+    private String taskNameInput() {
+
+        return new Scanner(System.in).next();
 
     }
 
