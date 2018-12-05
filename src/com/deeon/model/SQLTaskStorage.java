@@ -9,35 +9,24 @@ import java.util.UUID;
 public class SQLTaskStorage implements ITaskStorage {
 
 
-    private final String instanceName = "192.168.11.11\\sqlserver";
-    private final String dbName = "workbench";
-    private final String user = "sa";
-    private final String pass = "Pp0";
-    private final String connectionUrl = "jdbc:sqlserver://%1$s;databaseName=%2$s;user=%3$s;password=%4$s;";
-    private final String connectionString = String.format(connectionUrl, instanceName, dbName, user, pass);
+//    private final String instanceName = "192.168.11.11\\sqlserver";
+//    private final String dbName = "workbench";
+//    private final String user = "sa";
+//    private final String pass = "Pp0";
+//    private final String connectionUrl = "jdbc:sqlserver://%1$s;databaseName=%2$s;user=%3$s;password=%4$s;";
+//    private final String connectionString = String.format(connectionUrl, instanceName, dbName, user, pass);
     private final String getQuery = "SELECT Id, Name FROM Tasks";
     private final String clearTableQuery = "DELETE FROM Tasks";
     private final String updateQuery = "INSERT INTO Tasks (Id, Name) VALUES ('%s', '%s')";
 
 
-    private Connection con = null;
-
-    public SQLTaskStorage() {
-        try {
-            con = DBCPDataSource.getConnection();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-    }
-
 
     @Override
     public List<Task> getTaskCollection() {
 
-        try {
-//            Connection con = DriverManager.getConnection(connectionString);
-            Statement stm = con.createStatement();
+        try (Connection con = DBCPDataSource.getConnection();
+             Statement stm = con.createStatement()) {
+
             ResultSet resultSet = stm.executeQuery(getQuery);
 
             List<Task> list = new ArrayList<>();
@@ -59,9 +48,8 @@ public class SQLTaskStorage implements ITaskStorage {
     @Override
     public void updateStorage(List<Task> list) {
 
-        try {
-//            Connection con = DriverManager.getConnection(connectionString);
-            Statement stm = con.createStatement();
+        try (Connection con = DBCPDataSource.getConnection();
+             Statement stm = con.createStatement()) {
 
             stm.executeUpdate(clearTableQuery);
 
