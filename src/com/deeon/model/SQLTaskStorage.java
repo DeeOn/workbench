@@ -20,12 +20,23 @@ public class SQLTaskStorage implements ITaskStorage {
     private final String updateQuery = "INSERT INTO Tasks (Id, Name) VALUES ('%s', '%s')";
 
 
+    private Connection con = null;
+
+    public SQLTaskStorage() {
+        try {
+            con = DBCPDataSource.getConnection();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+
 
     @Override
     public List<Task> getTaskCollection() {
 
         try {
-            Connection con = DriverManager.getConnection(connectionString);
+//            Connection con = DriverManager.getConnection(connectionString);
             Statement stm = con.createStatement();
             ResultSet resultSet = stm.executeQuery(getQuery);
 
@@ -49,7 +60,7 @@ public class SQLTaskStorage implements ITaskStorage {
     public void updateStorage(List<Task> list) {
 
         try {
-            Connection con = DriverManager.getConnection(connectionString);
+//            Connection con = DriverManager.getConnection(connectionString);
             Statement stm = con.createStatement();
 
             stm.executeUpdate(clearTableQuery);
