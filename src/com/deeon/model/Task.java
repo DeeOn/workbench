@@ -29,5 +29,7 @@ public class Task implements Serializable {
         return name;
     }
 
-    public UUID getId() { return id; }
+    public UUID getId() {
+        return id;
+    }
 }

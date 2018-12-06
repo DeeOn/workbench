@@ -5,6 +5,7 @@ import com.deeon.exception.TaskIsNotExistException;
 import com.deeon.exception.TaskStorageIsEmptyException;
 import com.deeon.model.ITaskStorage;
 import com.deeon.view.IView;
+import com.google.inject.Inject;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,6 +15,8 @@ public class AppController {
     private final IView view;
     private final TaskManager taskManager;
 
+
+    @Inject
     public AppController(IView view, ITaskStorage taskStorage) {
 
         this.view = view;
@@ -62,6 +65,8 @@ public class AppController {
                 case 4:
                     taskManager.saveChanges();
                     return;
+                case 5:
+                    return;
 
 
                 default:
@@ -75,8 +80,7 @@ public class AppController {
 
         try {
 
-            final Scanner input = new Scanner(System.in);
-            return input.nextInt();
+            return new Scanner(System.in).nextInt();
 
         } catch (InputMismatchException e) {
             return 0;

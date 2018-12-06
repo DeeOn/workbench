@@ -5,7 +5,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DBCPDataSource {
+final class DBCPDataSource {
 
     private static BasicDataSource ds = new BasicDataSource();
 
@@ -18,10 +18,11 @@ public class DBCPDataSource {
         ds.setMaxOpenPreparedStatements(20);
     }
 
-    public static Connection getConnection() throws SQLException {
+    static Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
 
     private DBCPDataSource(){ }
 
 }
+
