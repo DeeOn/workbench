@@ -5,6 +5,8 @@ import com.deeon.exception.TaskIsNotExistException;
 import com.deeon.exception.TaskStorageIsEmptyException;
 import com.deeon.model.ITaskStorage;
 import com.deeon.model.Task;
+import com.google.inject.Inject;
+
 import java.util.List;
 
 public class TaskManager {
@@ -12,6 +14,7 @@ public class TaskManager {
     private final ITaskStorage taskStorage;
     private final List<Task> tasksCollection;
 
+    @Inject
     public TaskManager(final ITaskStorage taskStorage) {
 
         this.taskStorage = taskStorage;

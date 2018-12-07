@@ -17,10 +17,11 @@ public class AppController {
 
 
     @Inject
-    public AppController(IView view, ITaskStorage taskStorage) {
+    public AppController(IView view, TaskManager taskManager) {
 
         this.view = view;
-        this.taskManager = new TaskManager(taskStorage);
+//        this.taskManager = new TaskManager(taskStorage);
+        this.taskManager = taskManager;
 
     }
 
