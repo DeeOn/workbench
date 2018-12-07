@@ -17,8 +17,6 @@ public class App {
 
         AppController appController = injector.getInstance(AppController.class);
 
-//        AppController appController = new AppController(new ConsoleView(), new SQLTaskStorage());
-
         appController.startSession();
 
         System.exit(0);

@@ -24,7 +24,7 @@ public class SQLTaskStorage implements ITaskStorage {
     @Override
     public List<Task> getTaskCollection() {
 
-        try (Connection con = DBCPDataSource.getConnection();
+        try (Connection con = HikariCPDataSource.getConnection();
              Statement stm = con.createStatement()) {
 
             ResultSet resultSet = stm.executeQuery(getQuery);
@@ -48,7 +48,7 @@ public class SQLTaskStorage implements ITaskStorage {
     @Override
     public void updateStorage(List<Task> list) {
 
-        try (Connection con = DBCPDataSource.getConnection();
+        try (Connection con = HikariCPDataSource.getConnection();
              Statement stm = con.createStatement()) {
 
             stm.executeUpdate(clearTableQuery);
