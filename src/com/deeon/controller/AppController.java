@@ -3,7 +3,6 @@ package com.deeon.controller;
 import com.deeon.exception.TaskIsAlreadyExistException;
 import com.deeon.exception.TaskIsNotExistException;
 import com.deeon.exception.TaskStorageIsEmptyException;
-import com.deeon.model.ITaskStorage;
 import com.deeon.view.IView;
 import com.google.inject.Inject;
 
@@ -20,7 +19,6 @@ public class AppController {
     public AppController(IView view, TaskManager taskManager) {
 
         this.view = view;
-//        this.taskManager = new TaskManager(taskStorage);
         this.taskManager = taskManager;
 
     }

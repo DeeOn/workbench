@@ -7,12 +7,13 @@ import com.deeon.model.ITaskStorage;
 import com.deeon.model.Task;
 import com.google.inject.Inject;
 
-import java.util.List;
+import javax.swing.*;
+import java.util.*;
 
 public class TaskManager {
 
     private final ITaskStorage taskStorage;
-    private final List<Task> tasksCollection;
+    private List<Task> tasksCollection;
 
     @Inject
     public TaskManager(final ITaskStorage taskStorage) {
@@ -57,6 +58,25 @@ public class TaskManager {
         return tasksCollection.size() != 0;
 
     }
+
+    public List<Task> getTasksCollection() {
+        return tasksCollection;
+    }
+
+
+    public void setTasksCollection(DefaultListModel<Task> model) {
+
+
+        tasksCollection = new ArrayList<>();
+        for (Enumeration<Task> e = model.elements(); e.hasMoreElements();) {
+
+            tasksCollection.add(e.nextElement());
+
+        }
+
+    }
+
+
 
 
     private Task findTask(final String name, final List<Task> tasksCollection) {
